@@ -8,6 +8,13 @@ public class FutureInvestmentValue {
      */
     public static void main(String args[]) {
 
+        int i,j;
+        for(i=0;i>1;i++){
+            System.out.println(i);
+        }
+
+        String ss = "jkl", ff = "tt";
+
         //-- Reading Investment Amount from Keyboard
         Scanner readInvestmentAmount = new Scanner(System.in);
 
