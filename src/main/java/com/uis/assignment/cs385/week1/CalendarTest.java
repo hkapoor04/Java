@@ -129,9 +129,9 @@ public class CalendarTest {
             System.out.println("****fails");
         else
             System.out.println("****passes");
-/*****************************************************************************************************/
+/***************************************************************************************************/
 
-        /*System.out.println("******************Testing the Calendar Class********************");
+        System.out.println("******************Testing the Calendar Class********************");
         System.out.println("Trying to add an event to an empty calendar");
         Calendar c= new Calendar();
         c.addEvent(e1);
@@ -201,6 +201,6 @@ public class CalendarTest {
         System.out.println("your program should print:");
         System.out.println("8/28/2024 10--12:event 1\n8/28/2024 12--14:event 2\n8/28/2024 13--14:event 5\n8/28/2024 14--15:event 4");
         System.out.println("This is what your program printed: ");
-        c.dump();*/
+        c.dump();
     }
 }
