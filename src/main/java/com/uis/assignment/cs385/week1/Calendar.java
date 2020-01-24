@@ -32,14 +32,14 @@ public class Calendar {
         boolean isAddedSuccess = false;
 
         if (numEvents != MAXEVENTS) { /* check for number of events should not equal to max events to avoid ArrayIndexOutOfBound Exception */
-            if (events[numEvents] == null) { /*  adding the object at the end of the array at empty index */
-                events[numEvents] = e;
+            if (this.events[numEvents] == null) { /*  adding the object at the end of the array at empty index */
+                this.events[numEvents] = e;
                 numEvents++;
                 isAddedSuccess = true; /* On successful addition, making the boolean variable true */
             } else {
                 for (int i = 0; i <= numEvents; i++) { /* Iterating through array to find any empty index and adding the object to that index */
-                    if (events[i] == null) {
-                        events[i] = e;
+                    if (this.events[i] == null) {
+                        this.events[i] = e;
                         isAddedSuccess = true; /* On successful addition, making the boolean variable true */
                     }
                 }
