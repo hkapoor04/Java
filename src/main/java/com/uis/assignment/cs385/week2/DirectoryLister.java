@@ -74,6 +74,12 @@ public class DirectoryLister
                 //-- Creating the File object
                 File file = new File(basePath);
 
+                //-- Check in case the folder is empty
+                if(file.isDirectory()){
+                    //-- Displaying the contents in case folder is empty
+                    gui.updateListing(file.getAbsolutePath(), "", "Folder", formattedDateString(file.lastModified()));
+                }
+
                 //-- Checking for the presence of file
                 if (file.exists() || file.listFiles() != null) {
 
@@ -94,7 +100,7 @@ public class DirectoryLister
     /**
      * Recursive method to enumerate the contents of a directory.
      *
-     * @param    f    directory to enumerate
+     * @param f directory to enumerate
      */
     private void enumerateDirectory(File f) {
         try {
@@ -103,7 +109,7 @@ public class DirectoryLister
             File[] list = f.listFiles();
 
             //-- Checking the content of the file to be not null
-            if(list !=null) {
+            if (list != null) {
 
                 //-- Iterating through the list of contents in a given directory
                 for (File file : list) {
@@ -112,17 +118,18 @@ public class DirectoryLister
                     if (file.isFile()) {
 
                         //-- Displaying the contents of files in given directory on the UI
-                        gui.updateListing(file.getPath(), getSizeString(file.length()), "File", formattedDateString(file.lastModified()));
+                        gui.updateListing(file.getAbsolutePath(), getSizeString(file.length()), "File", formattedDateString(file.lastModified()));
                     } else {
+
+                        //-- Displaying the contents In case item is a folder
+                        gui.updateListing(file.getAbsolutePath(), "", "Folder", formattedDateString(file.lastModified()));
 
                         //-- Recursively calling the method in case of the item is a folder
                         enumerateDirectory(file);
-
-                        //-- Displaying the contents In case item is a folder
-                        gui.updateListing(file.getPath(), getSizeString(0), "Folder", formattedDateString(file.lastModified()));
                     }
                 }
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
