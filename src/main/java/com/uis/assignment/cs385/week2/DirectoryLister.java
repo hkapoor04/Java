@@ -74,9 +74,9 @@ public class DirectoryLister
                 //-- Creating the File object
                 File file = new File(basePath);
 
-                //-- Check in case the folder is empty
+                //-- Check, in case the base path has folder
                 if(file.isDirectory()){
-                    //-- Displaying the contents in case folder is empty
+                    //-- Displaying the contents in case of folder in base path
                     gui.updateListing(file.getAbsolutePath(), "", "Folder", formattedDateString(file.lastModified()));
                 }
 
