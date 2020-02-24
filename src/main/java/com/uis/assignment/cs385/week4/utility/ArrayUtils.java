@@ -26,10 +26,8 @@ public class ArrayUtils {
 		}
 		System.out.print("[ ");
 		for (int i = 0; i < arr.length; i++) {
-			if(arr[i] !=null) {
-				Object obj = arr[i];
-				System.out.println(obj.getClass().getName() + obj );
-			}
+			Object obj = arr[i];
+			System.out.print(obj.getClass().getName() + obj);
 			if (i < arr.length - 1) {
 				System.out.print(", ");
 			}

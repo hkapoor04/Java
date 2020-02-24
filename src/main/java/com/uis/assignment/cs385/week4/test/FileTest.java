@@ -40,7 +40,7 @@ public class FileTest {
 	}
 
 	public static void main(String[] args) throws FileNotFoundException{
-		int diff = 1;
+		int diff = 13;
 		String filepath = "/Users/harshitkapoor/IdeaProjects/Java/src/main/java/com/uis/assignment/cs385/week4/test/nums.txt";
 		int numberCount = numberOfLines(filepath);
 		int arr[] = new int[numberCount];

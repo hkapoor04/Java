@@ -1,6 +1,9 @@
 package com.uis.assignment.cs385.week4.diffpairs;
 
 
+import com.uis.assignment.cs385.week4.utility.ArrayUtils;
+
+
 public class DifferencePairs {
 	
 	/* Sorting the array using quick sort
@@ -42,6 +45,9 @@ public class DifferencePairs {
 		//-- variable to store the index of the matching key in the array
 		int matchIndex = -1;
 
+		//-- variable to store the index of resulting array
+		int l=0;
+
 		//-- Initializing the array to store the pairs of integers matching the criteria
 		Pair[] pairs = new Pair[size + 1];
 
@@ -61,16 +67,16 @@ public class DifferencePairs {
 
 				//-- putting both the integers with matching difference into Pair object
 				pair = new Pair(array[i], matchKey);
-			} else {
 
-				//-- assigning null in case none of the pairs match the criteria
-				pair = null;
+				//-- storing the Pair object in the array
+				pairs[l] = pair;
+
+				//-- incrementing the index counter by 1
+				l++;
 			}
-
-			//-- populating the array with all the integers pairs
-			pairs[i] = pair;
 		}
-		return pairs;
+
+		return ArrayUtils.truncateArray(pairs,l);
 	}
 
 
@@ -92,6 +98,7 @@ public class DifferencePairs {
 
 		while (low <= high) {
 
+			//-- finding the index of the middle element
 			mid = (low + high) / 2;
 
 			if (arr[mid] == matchKey) {
