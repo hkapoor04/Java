@@ -54,7 +54,6 @@ public class LeafPile {
                         maxLeafSize = leafSize;
                     }
                 }
-
             }
         }
         return maxLeafSize;
