@@ -141,7 +141,7 @@ public class SortedLinkedList<T extends Comparable<? super T>> {
         Node tempNode;
 
         //-- the condition where a new node is to be inserted before the head, and the references are rearranged
-        if (nodeToInsert == null) {
+        if (head != null && nodeToInsert == null) {
             head.prev = newNode;
             tempNode = head;
             head = newNode;
@@ -150,10 +150,33 @@ public class SortedLinkedList<T extends Comparable<? super T>> {
                 tail = tempNode;
                 tail.next = null;
             }
-        } else if (nodeToInsert.next == null) { //-- the condition where a new node is inserted after the tail, and the references are rearranged
+        } else if (head != null && nodeToInsert.next == null) { //-- the condition where a new node is inserted after the tail, and the references are rearranged
             newNode.prev = nodeToInsert;
             nodeToInsert.next = newNode;
             tail = newNode;
+        } else if (head == null) {
+            if ((tail.data.compareTo(newNode.data) > 0 && reverseCounter % 2 == 0) || (tail.data.compareTo(newNode.data) < 0 && reverseCounter % 2 != 0)) {
+                head = newNode;
+                head.next = tail;
+                tail.prev = head;
+            } else if ((tail.data.compareTo(newNode.data) > 0 && reverseCounter % 2 != 0) || (tail.data.compareTo(newNode.data) < 0 && reverseCounter % 2 == 0)) {
+                head = tail;
+                tail = newNode;
+                tail.prev = head;
+                head.next = tail;
+            }
+        } else if (tail == null) {
+            if ((head.data.compareTo(newNode.data) < 0 && reverseCounter % 2 == 0) || (head.data.compareTo(newNode.data) > 0 && reverseCounter % 2 != 0)) {
+                tail = newNode;
+                head.next = tail;
+                tail.prev = head;
+            } else if ((head.data.compareTo(newNode.data) < 0 && reverseCounter % 2 != 0) || (head.data.compareTo(newNode.data) > 0 && reverseCounter % 2 == 0)) {
+                tail = head;
+                head = newNode;
+                tail.prev = head;
+                head.next = tail;
+            }
+
         } else { // -- otherwise inserting the node anywhere between head and tail and rearranging the references
             Node prevNode, nextNode;
             prevNode = nodeToInsert;

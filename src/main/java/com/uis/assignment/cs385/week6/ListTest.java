@@ -50,7 +50,7 @@ public class ListTest {
             System.out.println("Exception caught: " + e.toString());
         }
 
-        sll.add('a');
+        sll.add('b');
         sll.reverse();
         System.out.println(sll);
         sll.add('a');
