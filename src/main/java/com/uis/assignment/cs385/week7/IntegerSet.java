@@ -173,9 +173,11 @@ public class IntegerSet {
      */
     private void inOrderTraverseIntersection(Node current, IntegerSet integerSet) {
         //-- condition to check if the caller object contains any of the data of the parameter object
-        if (current != null && this.contains(current.data)) {
-            //-- adding data to the new object
-            integerSet.add(current.data);
+        if (current != null) {
+            if(this.contains(current.data)) {
+                //-- adding data to the new object
+                integerSet.add(current.data);
+            }
 
             //-- recursively calling the method to traverse the left nodes first
             inOrderTraverseIntersection(current.left, integerSet);
@@ -216,3 +218,7 @@ public class IntegerSet {
 
     }
 }
+
+
+
+
