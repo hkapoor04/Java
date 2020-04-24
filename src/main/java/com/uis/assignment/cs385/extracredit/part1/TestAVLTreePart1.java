@@ -1,9 +1,9 @@
 package com.uis.assignment.cs385.extracredit.part1;
 
-public class TestAVLTree {
+public class TestAVLTreePart1 {
     public static void main(String[] args) {
         System.out.println("*************** Testing imbalance in left subtree of node's left child - start ****************");
-        AVLTree avlTree1 =  new AVLTree();
+        AVLTreePart1 avlTree1 =  new AVLTreePart1();
         avlTree1.add(10);
         avlTree1.add(6);
         avlTree1.add(15);
@@ -31,7 +31,7 @@ public class TestAVLTree {
         System.out.println("-----------------------------------------------------------------------------------------------");
 
         System.out.println("*************** Testing imbalance in right subtree of node's right child - start ****************");
-        AVLTree avlTree2 =  new AVLTree();
+        AVLTreePart1 avlTree2 =  new AVLTreePart1();
         avlTree2.add(10);
         avlTree2.add(6);
         avlTree2.add(8);
@@ -59,7 +59,7 @@ public class TestAVLTree {
         System.out.println("-----------------------------------------------------------------------------------------------");
 
         System.out.println("*************** Testing imbalance in right subtree of node's left child - start ****************");
-        AVLTree avlTree3 =  new AVLTree();
+        AVLTreePart1 avlTree3 =  new AVLTreePart1();
         avlTree3.add(12);
         avlTree3.add(5);
         avlTree3.add(3);
@@ -87,7 +87,7 @@ public class TestAVLTree {
         System.out.println("-----------------------------------------------------------------------------------------------");
 
         System.out.println("*************** Testing imbalance in left subtree of node's right child - start ****************");
-        AVLTree avlTree4 =  new AVLTree();
+        AVLTreePart1 avlTree4 =  new AVLTreePart1();
         avlTree4.add(12);
         avlTree4.add(5);
         avlTree4.add(3);

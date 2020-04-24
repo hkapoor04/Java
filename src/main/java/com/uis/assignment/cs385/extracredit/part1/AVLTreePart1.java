@@ -1,6 +1,6 @@
-package com.uis.assignment.cs385.extracredit.part2;
+package com.uis.assignment.cs385.extracredit.part1;
 
-public class AVLTree {
+public class AVLTreePart1 {
 
     //-- variable to store the root of type Node
     public Node root;
@@ -62,13 +62,8 @@ public class AVLTree {
         currentNode.left = middleNode; //-- the right node of left child becomes left node
 
         currentNode.height = Math.max(getHeight(currentNode.left),getHeight(currentNode.right)) + 1; //-- re-adjusting the height of AVL tree after rotation
-        root.height = Math.max(root.leftSubtreeHeight, root.rightSubtreeHeight); //-- re-adjusting the height of new parent node after rotation
+        root.height = Math.max(getHeight(root.left), getHeight(root.right)); //-- re-adjusting the height of new parent node after rotation
 
-        postOrderTraversal(root); //-- calling postOrderTraversal method to update the heights of left and right sub trees
-
-        System.out.println("Height of left subtree after right rotation: " + root.leftSubtreeHeight);
-
-        System.out.println("Height of right subtree after right rotation: " + root.rightSubtreeHeight);
         return root;
     }
 
@@ -88,11 +83,6 @@ public class AVLTree {
         currentNode.height = Math.max(getHeight(currentNode.left),getHeight(currentNode.right)) + 1; //-- re-adjusting the height of AVL tree after rotation
         root.height = Math.max(getHeight(root.left), getHeight(root.right)); //-- re-adjusting the height of new parent node after rotation
 
-        postOrderTraversal(root); //-- calling postOrderTraversal method to update the heights of left and right sub trees
-
-        System.out.println("Height of left subtree after left rotation: " + root.leftSubtreeHeight);
-
-        System.out.println("Height of right subtree after left rotation: " + root.rightSubtreeHeight);
         return root;
     }
 
@@ -107,21 +97,9 @@ public class AVLTree {
      */
     public Node checkBalanceAndRotate(Node parent, int newItem){
 
-        postOrderTraversal(parent); //-- calling postOrderTraversal method to update the heights of left and right sub trees
-
-        System.out.println("Height of left subtree before addition: " + parent.leftSubtreeHeight);
-
-        System.out.println("Height of right subtree before addition: " + parent.rightSubtreeHeight);
-
         add(newItem);
 
-        parent.height = Math.max(getHeight(parent.left), getHeight(parent.right)) + 1; //-- Calculating the height of current tree
-
-        postOrderTraversal(parent); //-- calling postOrderTraversal method to update the heights of left and right sub trees
-
-        System.out.println("Height of left subtree after addition: " + parent.leftSubtreeHeight);
-
-        System.out.println("Height of right subtree after addition: " + parent.rightSubtreeHeight);
+        parent.height = Math.max(getHeight(parent.left), getHeight(parent.right))  ;
 
         int heightDifference = getHeightDifference(parent);
 
@@ -179,22 +157,6 @@ public class AVLTree {
         return 1 + Math.max(getHeight(node.left), getHeight(node.right)); //-- returning the maximum of height between left and right tree
     }
 
-    /*
-     * This method finds the height of left and right subtrees of BST
-     *
-     * @param Node - the node of BST
-     *
-     * @return - int, the heights of BST
-     */
-    private int postOrderTraversal(Node parent){
-        if(parent == null){
-            return -1;
-        } else{
-            parent.leftSubtreeHeight =  postOrderTraversal(parent.left); //-- setting the height of left sub tree
-            parent.rightSubtreeHeight = postOrderTraversal((parent.right)); //-- setting the height of right sub tree
-        }
-        return Math.max(postOrderTraversal(parent.left),postOrderTraversal(parent.right)) + 1;
-    }
     /*
      * This method prints the content of the BST
      *
@@ -264,12 +226,6 @@ public class AVLTree {
 
         //-- variable to store the height of BST
         private int height;
-
-        //-- variable to store the height of Left Subtree of BST
-        private int leftSubtreeHeight;
-
-        //-- variable to store the height of Right Subtree of BST
-        private int rightSubtreeHeight;
 
         //-- The constructor that initializes the node and assigns data to it
         public Node(int data) {
