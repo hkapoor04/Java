@@ -4,7 +4,7 @@ public class AVLTreePart2 {
 
     //-- variable to store the root of type Node
     public Node root;
-    
+
     private int size;
 
     public boolean add(int newItem) {
@@ -14,11 +14,11 @@ public class AVLTreePart2 {
         //-- check if the BST is empty
         if (isEmpty()) {
             //-- if true then the new item is assigned to the root
-            root = new  Node(newItem);
+            root = new Node(newItem);
         } else {
 
             //-- declaring a temp node and assigning as root
-             Node temp = root;
+            Node temp = root;
 
             //-- start iterating until a leaf is reached
             while (temp != null) {
@@ -36,9 +36,9 @@ public class AVLTreePart2 {
             }
 
             if (newItem < parent.data) { //-- check for new data to be less than parent node's data
-                parent.left = new  Node(newItem); //-- assigning new data item as left child
+                parent.left = new Node(newItem); //-- assigning new data item as left child
             } else {
-                parent.right = new  Node(newItem); //-- assigning new data item as right child
+                parent.right = new Node(newItem); //-- assigning new data item as right child
             }
 
         }
@@ -61,7 +61,7 @@ public class AVLTreePart2 {
         root.right = currentNode; //-- the current node becomes the right node of new parent node
         currentNode.left = middleNode; //-- the right node of left child becomes left node
 
-        currentNode.height = Math.max(getHeight(currentNode.left),getHeight(currentNode.right)) + 1; //-- re-adjusting the height of AVL tree after rotation
+        currentNode.height = Math.max(getHeight(currentNode.left), getHeight(currentNode.right)) + 1; //-- re-adjusting the height of AVL tree after rotation
         root.height = Math.max(root.leftSubtreeHeight, root.rightSubtreeHeight); //-- re-adjusting the height of new parent node after rotation
 
         postOrderTraversal(root); //-- calling postOrderTraversal method to update the heights of left and right sub trees
@@ -85,7 +85,7 @@ public class AVLTreePart2 {
         root.left = currentNode; //-- the current node becomes the left node of new parent node
         currentNode.right = middleNode; //-- the left node of right child becomes right node
 
-        currentNode.height = Math.max(getHeight(currentNode.left),getHeight(currentNode.right)) + 1; //-- re-adjusting the height of AVL tree after rotation
+        currentNode.height = Math.max(getHeight(currentNode.left), getHeight(currentNode.right)) + 1; //-- re-adjusting the height of AVL tree after rotation
         root.height = Math.max(getHeight(root.left), getHeight(root.right)); //-- re-adjusting the height of new parent node after rotation
 
         postOrderTraversal(root); //-- calling postOrderTraversal method to update the heights of left and right sub trees
@@ -105,7 +105,7 @@ public class AVLTreePart2 {
      *
      * @return - Node, the root node of the AVL tree
      */
-    public Node checkBalanceAndRotate(Node parent, int newItem){
+    public Node checkBalanceAndRotate(Node parent, int newItem) {
 
         postOrderTraversal(parent); //-- calling postOrderTraversal method to update the heights of left and right sub trees
 
@@ -128,23 +128,23 @@ public class AVLTreePart2 {
         //-- If the node becomes unbalanced, then there are four cases
 
         //-- case when imbalance occurs in left subtree of node's left child
-        if(heightDifference > 1 && newItem < parent.left.data){
+        if (heightDifference > 1 && newItem < parent.left.data) {
             return rightRotation(parent);
         }
 
         //-- case when imbalance occurs in right subtree of node's right child
-        if(heightDifference < -1 && newItem > parent.right.data){
+        if (heightDifference < -1 && newItem > parent.right.data) {
             return leftRotation(parent);
         }
 
         //-- case when imbalance occurs in right subtree of node's left child
-        if(heightDifference > 1 && newItem > parent.left.data){
+        if (heightDifference > 1 && newItem > parent.left.data) {
             parent.left = leftRotation(parent.left);
             return rightRotation(parent);
         }
 
         //-- case when imbalance occurs in left subtree of node's right child
-        if(heightDifference < -1 && newItem < parent.right.data){
+        if (heightDifference < -1 && newItem < parent.right.data) {
             parent.right = rightRotation(parent.right);
             return leftRotation(parent);
         }
@@ -159,9 +159,9 @@ public class AVLTreePart2 {
      * @return - int, the difference in heights of left and right trees
      */
     public int getHeightDifference(Node parent) {
-        if(parent == null){
+        if (parent == null) {
             return 0;
-        }else
+        } else
             return getHeight(parent.left) - getHeight(parent.right);
     }
 
@@ -172,8 +172,8 @@ public class AVLTreePart2 {
      *
      * @return - int, the heights of BST
      */
-    public int getHeight(Node node){
-        if (node == null){
+    public int getHeight(Node node) {
+        if (node == null) {
             return -1;
         }
         return 1 + Math.max(getHeight(node.left), getHeight(node.right)); //-- returning the maximum of height between left and right tree
@@ -186,15 +186,16 @@ public class AVLTreePart2 {
      *
      * @return - int, the heights of BST
      */
-    private int postOrderTraversal(Node parent){
-        if(parent == null){
+    private int postOrderTraversal(Node parent) {
+        if (parent == null) {
             return -1;
-        } else{
-            parent.leftSubtreeHeight =  postOrderTraversal(parent.left); //-- setting the height of left sub tree
+        } else {
+            parent.leftSubtreeHeight = postOrderTraversal(parent.left); //-- setting the height of left sub tree
             parent.rightSubtreeHeight = postOrderTraversal((parent.right)); //-- setting the height of right sub tree
         }
-        return Math.max(postOrderTraversal(parent.left),postOrderTraversal(parent.right)) + 1;
+        return Math.max(postOrderTraversal(parent.left), postOrderTraversal(parent.right)) + 1;
     }
+
     /*
      * This method prints the content of the BST
      *
