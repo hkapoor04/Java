@@ -190,8 +190,8 @@ public class AVLTree {
         if(parent == null){
             return -1;
         } else{
-            parent.leftSubtreeHeight =  postOrderTraversal(parent.left);
-            parent.rightSubtreeHeight = postOrderTraversal((parent.right));
+            parent.leftSubtreeHeight =  postOrderTraversal(parent.left); //-- setting the height of left sub tree
+            parent.rightSubtreeHeight = postOrderTraversal((parent.right)); //-- setting the height of right sub tree
         }
         return Math.max(postOrderTraversal(parent.left),postOrderTraversal(parent.right)) + 1;
     }
