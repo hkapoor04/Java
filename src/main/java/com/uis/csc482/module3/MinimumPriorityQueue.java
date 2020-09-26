@@ -107,7 +107,7 @@ public class MinimumPriorityQueue {
 
         int rightChildIndex = getRightChildIndex(index);
 
-        int smallest = -1;
+        int smallest = 0;
 
         if((leftChildIndex < heap.length ) && heap[leftChildIndex] < heap[index]){
             smallest =  leftChildIndex;
@@ -143,7 +143,7 @@ public class MinimumPriorityQueue {
     {
         int element = heap[1];
         heap[1] = heap[heapSize--];
-        heapify_down(element);
+        heapify_down(1);
         return element;
     }
 
@@ -171,6 +171,13 @@ public class MinimumPriorityQueue {
             throw new NoSuchElementException("Heap is full, cannot insert new element");
         heap[0] = element;
         heapify_down(0);
+        heapSize++;
+
+        //heapSize++;
+
+        //heap[heapSize - 1] = element;
+
+        //heapify_up(heapSize - 1);
     }
 
 
@@ -180,7 +187,7 @@ public class MinimumPriorityQueue {
      */
     public void printHeap()
     {
-        for (int i = 0; i < heapSize; i++)
+        for (int i = 1; i < maximumSize; i++)
             System.out.println(heap[i] +" ");
     }
 
