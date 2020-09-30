@@ -34,7 +34,7 @@ public class MinimumPriorityQueue {
      * This will check if the heap is full or not
      */
     public boolean isFull() {
-        return heapSize == heap.length;
+        return heapSize == (heap.length - 1);
     }
 
 
@@ -48,6 +48,7 @@ public class MinimumPriorityQueue {
 
         return new MinimumPriorityQueue(n);
     }
+
 
     /**
      * Function to get right child of a node of a tree
@@ -86,6 +87,7 @@ public class MinimumPriorityQueue {
         heap[secondNodeValue] = tmp;
     }
 
+
     /**
      * Function to heapify up
      */
@@ -112,14 +114,14 @@ public class MinimumPriorityQueue {
 
         int smallest = 0;
 
-        if ((leftChildIndex < heap.length) && heap[leftChildIndex] < heap[index]) {
+        if ((leftChildIndex <= maximumSize) && heap[leftChildIndex] < heap[index]) {
             smallest = leftChildIndex;
 
         } else {
             smallest = index;
         }
 
-        if ((rightChildIndex < heap.length) && heap[rightChildIndex] < heap[smallest]) {
+        if ((rightChildIndex <= maximumSize) && heap[rightChildIndex] < heap[smallest]) {
             smallest = rightChildIndex;
 
         }
@@ -143,11 +145,21 @@ public class MinimumPriorityQueue {
      * Function to identify the element with the minimum key value
      */
     public int extractMin() {
+
+        if (isEmpty())
+            throw new NoSuchElementException("Heap is empty, no element to extract");
+
         //-- Extracting the first element as it is the minimum
         int element = heap[1];
 
         //-- Deleting the first element from the heap by moving the item in the last array position to first
-        heap[1] = heap[heapSize--];
+        heap[1] = heap[maximumSize];
+
+        //-- Reducing the heap size upon deletion of an entry
+        heapSize--;
+
+        //-- Reducing the maximum size upon deletion of an entry
+        maximumSize--;
 
         //-- calling heapify down to readjust the entire heap
         heapify_down(1);
@@ -165,6 +177,10 @@ public class MinimumPriorityQueue {
     public int delete(int index) {
         if (isEmpty())
             throw new NoSuchElementException("Heap is empty, no element to delete");
+
+        if (index > maximumSize) {
+            throw new ArrayIndexOutOfBoundsException("The index is outside the maximum size of heap");
+        }
 
         //-- Finding the element at the particular index in the heap
         int element = heap[index];
@@ -191,6 +207,9 @@ public class MinimumPriorityQueue {
     public void insert(int element) {
         if (isFull())
             throw new NoSuchElementException("Heap is full, cannot insert new element");
+        if (heap.length == maximumSize) {
+            throw new ArrayIndexOutOfBoundsException("Heap is full capacity");
+        }
 
         //-- Inserting new element at index 0
         heap[0] = element;
@@ -207,7 +226,7 @@ public class MinimumPriorityQueue {
      * This method used to print all element of the heap
      */
     public void printHeap() {
-        for (int i = 1; i < maximumSize; i++)
+        for (int i = 1; i <= maximumSize; i++)
             System.out.println(heap[i] + " ");
     }
 
@@ -228,27 +247,41 @@ public class MinimumPriorityQueue {
      * @param item - The item to be deleted
      */
     public int deleteItem(int item) {
-        return delete(item);
+        for (int i = 1; i < maximumSize; i++) {
+            if (heap[i] == item) {
+                return delete(item);
+            }
+        }
+        throw new NoSuchElementException("Item does not exist in heap");
     }
 
     /**
      * This method changes a particular item in heap
      *
-     * @param item - The item to be changed
+     * @param item     - The item to be changed
      * @param newValue - The new value of the item
      */
 
-    public void changeKey(int item, int newValue){
-
-        for(int i = 1; i< maximumSize; i++){
-            if(heap[i] != item){
-                throw new NoSuchElementException("The item {} does not exist in heap" + item);
-            } else{
+    public void changeKey(int item, int newValue) {
+        for (int i = 1; i < maximumSize; i++) {
+            if (heap[i] == item) {
                 heap[i] = newValue;
                 heapify_down(i);
             }
         }
 
+
     }
 
+    public int getHeapSize() {
+        return heapSize;
+    }
+
+    public int getMaximumSize() {
+        return maximumSize;
+    }
+
+    public Map<Integer, Integer> getHeapMap() {
+        return heapMap;
+    }
 }
