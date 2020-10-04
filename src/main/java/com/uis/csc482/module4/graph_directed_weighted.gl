@@ -1,0 +1,5 @@
+directed weighted
+A=B=5
+B=C=3
+C=A=6
+A=C=4
