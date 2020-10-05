@@ -48,16 +48,24 @@ public class GraphLanguage {
             //-- For each entry of the map, calling method to populate the graph
             for (Map.Entry<Integer, String[]> entry : nodeValueMap.entrySet()) {
                 if (header != null && header.equalsIgnoreCase("directed weighted")) {
-                    graph.addEdge(entry.getValue()[0], entry.getValue()[1], Integer.parseInt(entry.getValue()[2]));
-                } else if (header != null && header.equalsIgnoreCase("directed unweighted")){
-                    graph.addEdge(entry.getValue()[0], entry.getValue()[1]);
-                } else{
+                    graph.addEdge(entry.getValue()[0], entry.getValue()[1], entry.getValue()[2], false);
+                } else if ((header != null && header.equalsIgnoreCase("undirected weighted"))) {
+                    graph.addEdge(entry.getValue()[0], entry.getValue()[1], entry.getValue()[2], true);
+                } else if (header != null && (header.equalsIgnoreCase("directed unweighted"))) {
+                    graph.addEdge(entry.getValue()[0], entry.getValue()[1], false);
+                } else if (header != null && header.equalsIgnoreCase("undirected unweighted")) {
+                    graph.addEdge(entry.getValue()[0], entry.getValue()[1], true);
+                } else {
                     System.out.println("Invalid File");
                     break;
                 }
             }
 
-            graph.printGraph();
+            if (header != null && (header.equalsIgnoreCase("directed weighted") || header.equalsIgnoreCase("undirected weighted"))) {
+                System.out.print(graph.printGraphWeighted());
+            } else if ((header != null && (header.equalsIgnoreCase("directed unweighted") || header.equalsIgnoreCase("undirected unweighted")))){
+                System.out.print(graph.printGraphUnweighted());
+            }
 
             reader.close();
         } catch (IOException e) {

@@ -10,7 +10,7 @@ public class TestGraphLanguage {
 
         System.out.println("***************** Testing directed weighted graph - start *******************************");
 
-        graphLanguage.processFile("/src/main/java/com/uis/csc482/module4/graph_directed_weighted.gl");
+        graphLanguage.processFile("/src/main/java/com/uis/csc482/module4/dw.gl");
 
         System.out.println("***************** Testing directed weighted graph - end *********************************");
 
@@ -21,7 +21,7 @@ public class TestGraphLanguage {
 
         GraphLanguage graphLanguage1 = new GraphLanguage();
 
-        graphLanguage1.processFile("/src/main/java/com/uis/csc482/module4/graph_directed_unweighted.gl");
+        graphLanguage1.processFile("/src/main/java/com/uis/csc482/module4/du.gl");
 
 
         System.out.println("***************** Testing directed un-weighted graph - end ******************************");
@@ -37,6 +37,31 @@ public class TestGraphLanguage {
 
 
         System.out.println("********************** Testing invalid file - end ***************************************");
+
+
+        System.out.println("-----------------------------------------------------------------------------------------");
+
+
+        System.out.println("***************** Testing un-directed weighted graph - start *******************************");
+
+        GraphLanguage graphLanguage3 = new GraphLanguage();
+
+        graphLanguage3.processFile("/src/main/java/com/uis/csc482/module4/uw.gl");
+
+        System.out.println("***************** Testing un-directed weighted graph - end *********************************");
+
+        System.out.println("-----------------------------------------------------------------------------------------");
+
+
+        System.out.println("***************** Testing un-directed un-weighted graph - start ****************************");
+
+        GraphLanguage graphLanguage4 = new GraphLanguage();
+
+        graphLanguage4.processFile("/src/main/java/com/uis/csc482/module4/uu.gl");
+
+
+        System.out.println("***************** Testing un-directed un-weighted graph - end ******************************");
+
 
 
 

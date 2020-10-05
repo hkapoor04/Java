@@ -8,9 +8,9 @@ import java.util.Map;
 public class Edge {
 
     String destination;
-    int weight;
+    String weight;
 
-    Edge(String destination, int weight) {
+    Edge(String destination, String weight) {
         this.destination = destination;
         this.weight = weight;
     }
@@ -38,50 +38,67 @@ class Graph {
 
     /**
      * This method adds the destination edge to source edge
-     * @param source the source edge where destination edge is added
+     *
+     * @param source      the source edge where destination edge is added
      * @param destination the edge added to the source
      */
-    public void addEdge(String source, String destination) {
+    public void addEdge(String source, String destination, boolean biDirectional) {
 
         List<Edge> list = adjListMap.get(source);
-
         Edge edge = new Edge(destination);
         list.add(edge);
         adjListMap.put(source, list);
+
+        if (biDirectional) {
+            List<Edge> listDestination = adjListMap.get(destination);
+            Edge edgeDestination = new Edge(source);
+            listDestination.add(edgeDestination);
+            adjListMap.put(destination, listDestination);
+        }
     }
+
 
     /**
      * This method adds the destination edge to source edge
-     * @param source the source edge where destination edge is added
+     *
+     * @param source      the source edge where destination edge is added
      * @param destination the edge added to the source
-     * @param weight the weight along each edge
+     * @param weight      the weight along each edge
      */
-    public void addEdge(String source, String destination, int weight) {
+    public void addEdge(String source, String destination, String weight, boolean biDirectional) {
 
         List<Edge> list = adjListMap.get(source);
-
         Edge edge = new Edge(destination, weight);
         list.add(edge);
         adjListMap.put(source, list);
+
+        if (biDirectional) {
+            List<Edge> listDestination = adjListMap.get(destination);
+            Edge edgeDestination = new Edge(source, weight);
+            listDestination.add(edgeDestination);
+            adjListMap.put(destination, listDestination);
+        }
 
 
     }
 
     /**
      * This method adds a new vertex to the graph if not present
+     *
      * @param newVertex the vertex that has to be added in graph
      */
     public void addVertex(String newVertex) {
         if (!adjListMap.containsKey(newVertex)) {
             adjListMap.put(newVertex, new ArrayList<>());
-            System.out.println("The vertex " +newVertex + " added successfully");
+            System.out.println("The vertex " + newVertex + " added successfully");
         } else {
-            System.out.println("The vertex " +newVertex + " already exist");
+            System.out.println("The vertex " + newVertex + " already exist");
         }
     }
 
     /**
      * This method gets the list of edges that belongs to a vertex
+     *
      * @param vertex the vertex
      * @return List of Edges around the vertex
      */
@@ -96,6 +113,7 @@ class Graph {
 
     /**
      * This method gets the list of vertices in the graph
+     *
      * @return List of vertices in a graph
      */
 
@@ -112,13 +130,53 @@ class Graph {
     }
 
     /**
-     * This method prints the content of graph map
+     * This method prints the content of unweighted graph map
      */
-    public void printGraph(){
-        adjListMap.entrySet().forEach(entry ->{
-            entry.getValue().forEach(obj->{
-            System.out.println(entry.getKey() + ": " + obj.destination + "," + obj.weight);
-            });
-        });
+    public String printGraphUnweighted() {
+        StringBuilder builder = new StringBuilder();
+
+        for (String v : adjListMap.keySet()) {
+            builder.append(v + ": ");
+            builder.append("[ ");
+
+            for (int i = 0; i < adjListMap.get(v).size(); i++) {
+
+                if (i == adjListMap.get(v).size() - 1) {
+                    builder.append("( " + adjListMap.get(v).get(i).destination + " )");
+                } else {
+                    builder.append("( " + adjListMap.get(v).get(i).destination + " )" + ",");
+                }
+            }
+
+            builder.append(" ]");
+            builder.append("\n");
+        }
+
+        return (builder.toString());
     }
+
+    /**
+     * This method prints the content of weighted graph map
+     */
+    public String printGraphWeighted() {
+        StringBuilder builder = new StringBuilder();
+
+        for (String v : adjListMap.keySet()) {
+            builder.append(v + ": ");
+            builder.append("[ ");
+
+            for (int i = 0; i < adjListMap.get(v).size(); i++) {
+                if (i == adjListMap.get(v).size() - 1) {
+                    builder.append("( " + adjListMap.get(v).get(i).destination + ", " + adjListMap.get(v).get(i).weight + " )");
+                } else {
+                    builder.append("( " + adjListMap.get(v).get(i).destination + ", " + adjListMap.get(v).get(i).weight + " )" + ",");
+                }
+            }
+
+            builder.append(" ]");
+            builder.append("\n");
+        }
+        return (builder.toString());
+    }
+
 }
