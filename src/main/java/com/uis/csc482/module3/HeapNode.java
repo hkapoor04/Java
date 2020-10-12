@@ -1,19 +1,19 @@
 package com.uis.csc482.module3;
 
-public class HeapNode  implements Comparable<HeapNode>{
-    int element;
+public class HeapNode<T>  implements Comparable<HeapNode>{
+    T element;
     int priority;
 
-    public HeapNode(int element, int priority){
+    public HeapNode(T element, int priority){
         this.element = element;
         this.priority = priority;
     }
 
-    public int getElement() {
+    public T getElement() {
         return element;
     }
 
-    public void setElement(int element) {
+    public void setElement(T element) {
         this.element = element;
     }
 
@@ -29,4 +29,6 @@ public class HeapNode  implements Comparable<HeapNode>{
     public int compareTo(HeapNode o) {
         return Integer.compare(this.priority, o.priority);
     }
+
+
 }

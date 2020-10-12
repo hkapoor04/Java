@@ -8,17 +8,17 @@ public class PriorityQueueTest {
 
         MinimumPriorityQueue minimumPriorityQueue = new MinimumPriorityQueue(11);
 
-        minimumPriorityQueue.insert(10);
-        minimumPriorityQueue.insert(4);
-        minimumPriorityQueue.insert(9);
-        minimumPriorityQueue.insert(1);
-        minimumPriorityQueue.insert(7);
-        minimumPriorityQueue.insert(5);
-        minimumPriorityQueue.insert(3);
-        minimumPriorityQueue.insert(2);
-        minimumPriorityQueue.insert(6);
-        minimumPriorityQueue.insert(8);
-        minimumPriorityQueue.insert(11);
+        minimumPriorityQueue.insert(new HeapNode(10, 2));
+        minimumPriorityQueue.insert(new HeapNode(4, 3));
+        minimumPriorityQueue.insert(new HeapNode(9, 4));
+        minimumPriorityQueue.insert(new HeapNode(1, 5));
+        minimumPriorityQueue.insert(new HeapNode(7, 6));
+        minimumPriorityQueue.insert(new HeapNode(5, 7));
+        minimumPriorityQueue.insert(new HeapNode(3, 8));
+        minimumPriorityQueue.insert(new HeapNode(2, 9));
+        minimumPriorityQueue.insert(new HeapNode(6, 10));
+        minimumPriorityQueue.insert(new HeapNode(8, 11));
+        minimumPriorityQueue.insert(new HeapNode( 11, 12));
 
 
         minimumPriorityQueue.populatePosition();
@@ -29,7 +29,7 @@ public class PriorityQueueTest {
 
         for (int i = 1; i <= 11; i++) {
 
-            System.out.println("Extracting Minimum " + i + " time " + minimumPriorityQueue.extractMin());
+            System.out.println("Extracting Minimum " + i + " time " + minimumPriorityQueue.extractMin().getPriority());
 
         }
 
@@ -43,18 +43,19 @@ public class PriorityQueueTest {
 
         System.out.println("**********************Testing delete (index) Method - start **********************: ");
 
-        MinimumPriorityQueue minimumPriorityQueue2 = new MinimumPriorityQueue(10);
+        MinimumPriorityQueue minimumPriorityQueue2 = new MinimumPriorityQueue(11);
 
-        minimumPriorityQueue2.insert(10);
-        minimumPriorityQueue2.insert(4);
-        minimumPriorityQueue2.insert(9);
-        minimumPriorityQueue2.insert(1);
-        minimumPriorityQueue2.insert(7);
-        minimumPriorityQueue2.insert(5);
-        minimumPriorityQueue2.insert(3);
-        minimumPriorityQueue2.insert(2);
-        minimumPriorityQueue2.insert(6);
-        minimumPriorityQueue2.insert(8);
+        minimumPriorityQueue2.insert(new HeapNode(10, 2));
+        minimumPriorityQueue2.insert(new HeapNode(4, 3));
+        minimumPriorityQueue2.insert(new HeapNode(9, 4));
+        minimumPriorityQueue2.insert(new HeapNode(1, 5));
+        minimumPriorityQueue2.insert(new HeapNode(7, 6));
+        minimumPriorityQueue2.insert(new HeapNode(5, 7));
+        minimumPriorityQueue2.insert(new HeapNode(3, 8));
+        minimumPriorityQueue2.insert(new HeapNode(2, 9));
+        minimumPriorityQueue2.insert(new HeapNode(6, 10));
+        minimumPriorityQueue2.insert(new HeapNode(8, 11));
+        minimumPriorityQueue2.insert(new HeapNode( 11, 12));
 
 
         minimumPriorityQueue2.populatePosition();
@@ -63,7 +64,7 @@ public class PriorityQueueTest {
 
         minimumPriorityQueue2.printHeap();
 
-        minimumPriorityQueue2.delete(minimumPriorityQueue2.getHeapMap().get(6));
+        minimumPriorityQueue2.delete(6);
 
         System.out.println("********************** After Deletion **********************: ");
 
@@ -74,18 +75,19 @@ public class PriorityQueueTest {
 
         System.out.println("################################################################################# ");
 
-        MinimumPriorityQueue minimumPriorityQueue3 = new MinimumPriorityQueue(10);
+        MinimumPriorityQueue minimumPriorityQueue3 = new MinimumPriorityQueue(11);
 
-        minimumPriorityQueue3.insert(10);
-        minimumPriorityQueue3.insert(4);
-        minimumPriorityQueue3.insert(9);
-        minimumPriorityQueue3.insert(1);
-        minimumPriorityQueue3.insert(7);
-        minimumPriorityQueue3.insert(5);
-        minimumPriorityQueue3.insert(3);
-        minimumPriorityQueue3.insert(2);
-        minimumPriorityQueue3.insert(6);
-        minimumPriorityQueue3.insert(8);
+        minimumPriorityQueue3.insert(new HeapNode(10, 2));
+        minimumPriorityQueue3.insert(new HeapNode(4, 3));
+        minimumPriorityQueue3.insert(new HeapNode(9, 4));
+        minimumPriorityQueue3.insert(new HeapNode(1, 5));
+        minimumPriorityQueue3.insert(new HeapNode(7, 6));
+        minimumPriorityQueue3.insert(new HeapNode(5, 7));
+        minimumPriorityQueue3.insert(new HeapNode(3, 8));
+        minimumPriorityQueue3.insert(new HeapNode(2, 9));
+        minimumPriorityQueue3.insert(new HeapNode(6, 10));
+        minimumPriorityQueue3.insert(new HeapNode(8, 11));
+        minimumPriorityQueue3.insert(new HeapNode( 11, 12));
 
         minimumPriorityQueue3.populatePosition();
 
@@ -108,18 +110,19 @@ public class PriorityQueueTest {
 
         System.out.println("**********************Testing changeKey Method - start **********************: ");
 
-        MinimumPriorityQueue minimumPriorityQueue4 = new MinimumPriorityQueue(10);
+        MinimumPriorityQueue minimumPriorityQueue4 = new MinimumPriorityQueue(11);
 
-        minimumPriorityQueue4.insert(10);
-        minimumPriorityQueue4.insert(4);
-        minimumPriorityQueue4.insert(9);
-        minimumPriorityQueue4.insert(1);
-        minimumPriorityQueue4.insert(7);
-        minimumPriorityQueue4.insert(5);
-        minimumPriorityQueue4.insert(3);
-        minimumPriorityQueue4.insert(2);
-        minimumPriorityQueue4.insert(6);
-        minimumPriorityQueue4.insert(8);
+        minimumPriorityQueue4.insert(new HeapNode(10, 2));
+        minimumPriorityQueue4.insert(new HeapNode(4, 3));
+        minimumPriorityQueue4.insert(new HeapNode(9, 4));
+        minimumPriorityQueue4.insert(new HeapNode(1, 5));
+        minimumPriorityQueue4.insert(new HeapNode(7, 6));
+        minimumPriorityQueue4.insert(new HeapNode(5, 7));
+        minimumPriorityQueue4.insert(new HeapNode(3, 8));
+        minimumPriorityQueue4.insert(new HeapNode(2, 9));
+        minimumPriorityQueue4.insert(new HeapNode(6, 10));
+        minimumPriorityQueue4.insert(new HeapNode(8, 11));
+        minimumPriorityQueue4.insert(new HeapNode( 11, 12));
 
         minimumPriorityQueue4.printHeap();
 
@@ -132,7 +135,7 @@ public class PriorityQueueTest {
 
         for (int i = 1; i <= 10; i++) {
 
-            System.out.println("Extracting Minimum " + i + " time " + minimumPriorityQueue4.extractMin());
+            System.out.println("Extracting Minimum " + i + " time " + minimumPriorityQueue4.extractMin().getPriority());
 
         }
 

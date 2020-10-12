@@ -4,21 +4,23 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-public class MinimumPriorityQueue {
+public class MinimumPriorityQueue<T> {
 
-    private int[] heap;
+    private HeapNode[] heap;
 
     private int heapSize;
 
     private int maximumSize;
 
-    private Map<Integer, Integer> heapMap;
+    private Map<HeapNode, Integer> heapMap;
 
     public MinimumPriorityQueue(int maximumSize) {
         this.maximumSize = maximumSize;
         this.heapSize = 0;
-        heap = new int[this.maximumSize + 1];
-        heap[0] = Integer.MIN_VALUE;
+        heap = new HeapNode[this.maximumSize + 1];
+       for(int i=1; i<=maximumSize; i++){
+           heap[i] = new HeapNode(0,0);
+       }
         heapMap = new HashMap<>();
     }
 
@@ -81,8 +83,7 @@ public class MinimumPriorityQueue {
      * Function to swap two nodes' values of heap
      */
     public void swap(int firstNodeValue, int secondNodeValue) {
-        int tmp;
-        tmp = heap[firstNodeValue];
+        HeapNode tmp = heap[firstNodeValue];
         heap[firstNodeValue] = heap[secondNodeValue];
         heap[secondNodeValue] = tmp;
     }
@@ -95,7 +96,7 @@ public class MinimumPriorityQueue {
 
         if (index > 1) {
             int parentIndex = getParent(index);
-            if (heap[index] < heap[parentIndex]) {
+            if (heap[index].getPriority() < heap[parentIndex].getPriority()) {
                 swap(index, parentIndex);
 
                 heapify_up(parentIndex);
@@ -114,14 +115,14 @@ public class MinimumPriorityQueue {
 
         int smallest = 0;
 
-        if ((leftChildIndex <= maximumSize) && heap[leftChildIndex] < heap[index]) {
+        if ((leftChildIndex <= maximumSize) && heap[leftChildIndex] !=null && heap[leftChildIndex].getPriority() < heap[index].getPriority()) {
             smallest = leftChildIndex;
 
         } else {
             smallest = index;
         }
 
-        if ((rightChildIndex <= maximumSize) && heap[rightChildIndex] < heap[smallest]) {
+        if ( (rightChildIndex <= maximumSize) && heap[rightChildIndex]!= null && heap[rightChildIndex].getPriority() < heap[smallest].getPriority()) {
             smallest = rightChildIndex;
 
         }
@@ -136,7 +137,7 @@ public class MinimumPriorityQueue {
     /**
      * Function to find the least element in the heap
      */
-    public int findMin() {
+    public HeapNode findMin() {
 
         return heap[1];
     }
@@ -144,13 +145,13 @@ public class MinimumPriorityQueue {
     /**
      * Function to identify the element with the minimum key value
      */
-    public int extractMin() {
+    public HeapNode extractMin() {
 
         if (isEmpty())
             throw new NoSuchElementException("Heap is empty, no element to extract");
 
         //-- Extracting the first element as it is the minimum
-        int element = heap[1];
+        HeapNode element = heap[1];
 
         //-- Deleting the first element from the heap by moving the item in the last array position to first
         heap[1] = heap[maximumSize];
@@ -174,7 +175,7 @@ public class MinimumPriorityQueue {
      *
      * @param index - The index of the entry to be deleted
      */
-    public int delete(int index) {
+    public HeapNode delete(int index) {
         if (isEmpty())
             throw new NoSuchElementException("Heap is empty, no element to delete");
 
@@ -183,10 +184,10 @@ public class MinimumPriorityQueue {
         }
 
         //-- Finding the element at the particular index in the heap
-        int element = heap[index];
+        HeapNode element = heap[index];
 
         //-- Deleting the element from the heap by moving the item in the last array position to index
-        heap[index] = heap[heapSize - 1];
+        heap[index] = heap[heapSize];
 
         //-- Reducing the heap size upon deletion of an entry
         heapSize--;
@@ -199,12 +200,13 @@ public class MinimumPriorityQueue {
     }
 
 
+
     /**
      * This will insert new element in to heap
      *
-     * @param element - The element to be inserted in heap
+     * @param heapNode - The element to be inserted in heap
      */
-    public void insert(int element) {
+    public void insert(HeapNode  heapNode) {
         if (isFull())
             throw new NoSuchElementException("Heap is full, cannot insert new element");
         if (heap.length == maximumSize) {
@@ -212,7 +214,7 @@ public class MinimumPriorityQueue {
         }
 
         //-- Inserting new element at index 0
-        heap[0] = element;
+        heap[0] = heapNode;
 
         //-- calling heapify down to readjust the entire heap
         heapify_down(0);
@@ -227,15 +229,15 @@ public class MinimumPriorityQueue {
      */
     public void printHeap() {
         for (int i = 1; i <= maximumSize; i++)
-            System.out.println(heap[i] + " ");
+            System.out.println("(" + heap[i].element + ", " + heap[i].priority + ")");
     }
 
 
     /**
      * This method adds all element of the heap in a map
      */
-    public Map<Integer, Integer> populatePosition() {
-        for (int i = 1; i < maximumSize; i++) {
+    public Map<HeapNode, Integer> populatePosition() {
+        for (int i = 1; i <= maximumSize; i++) {
             heapMap.put(heap[i], i);
         }
         return heapMap;
@@ -246,10 +248,10 @@ public class MinimumPriorityQueue {
      *
      * @param item - The item to be deleted
      */
-    public int deleteItem(int item) {
-        for (int i = 1; i < maximumSize; i++) {
-            if (heap[i] == item) {
-                return delete(item);
+    public HeapNode deleteItem(T item) {
+        for (int i = 1; i <= maximumSize; i++) {
+            if (heap[i].element == item) {
+                return delete(i);
             }
         }
         throw new NoSuchElementException("Item does not exist in heap");
@@ -258,14 +260,14 @@ public class MinimumPriorityQueue {
     /**
      * This method changes a particular item in heap
      *
-     * @param item     - The item to be changed
-     * @param newValue - The new value of the item
+     * @param oldPriority     - The item to be changed
+     * @param newPriority - The new value of the item
      */
 
-    public void changeKey(int item, int newValue) {
-        for (int i = 1; i < maximumSize; i++) {
-            if (heap[i] == item) {
-                heap[i] = newValue;
+    public void changeKey(int oldPriority, int newPriority) {
+        for (int i = 1; i <= maximumSize; i++) {
+            if (heap[i].priority == oldPriority) {
+                heap[i].priority = newPriority;
                 heapify_down(i);
             }
         }
@@ -281,7 +283,7 @@ public class MinimumPriorityQueue {
         return maximumSize;
     }
 
-    public Map<Integer, Integer> getHeapMap() {
+    public Map<HeapNode, Integer> getHeapMap() {
         return heapMap;
     }
 }
