@@ -1,10 +1,10 @@
 package com.uis.csc482.module3;
 
-public class HeapNode<T>  implements Comparable<HeapNode>{
-    T element;
-    int priority;
+public class HeapNode<T extends Comparable<T>>  implements Comparable<HeapNode<T>>{
+    private T element;
+    private T priority;
 
-    public HeapNode(T element, int priority){
+    public HeapNode(T element, T priority){
         this.element = element;
         this.priority = priority;
     }
@@ -17,17 +17,21 @@ public class HeapNode<T>  implements Comparable<HeapNode>{
         this.element = element;
     }
 
-    public int getPriority() {
-        return priority;
+    public T getPriority() {
+        return this.priority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(T priority) {
         this.priority = priority;
     }
 
     @Override
-    public int compareTo(HeapNode o) {
-        return Integer.compare(this.priority, o.priority);
+    public int compareTo( HeapNode <T> o) {
+        if (this.getPriority().compareTo(o.getPriority()) > 0) {
+            return 1;
+        } else if (this.compareTo(o) == 0) {
+            return 0;
+        } else return -1;
     }
 
 

@@ -48,12 +48,12 @@ public class PriorityQueueTest {
         minimumPriorityQueue2.insert(new HeapNode(10, 2));
         minimumPriorityQueue2.insert(new HeapNode(4, 3));
         minimumPriorityQueue2.insert(new HeapNode(9, 4));
-        minimumPriorityQueue2.insert(new HeapNode(1, 5));
+        minimumPriorityQueue2.insert(new HeapNode(1, 10));
         minimumPriorityQueue2.insert(new HeapNode(7, 6));
         minimumPriorityQueue2.insert(new HeapNode(5, 7));
         minimumPriorityQueue2.insert(new HeapNode(3, 8));
         minimumPriorityQueue2.insert(new HeapNode(2, 9));
-        minimumPriorityQueue2.insert(new HeapNode(6, 10));
+        minimumPriorityQueue2.insert(new HeapNode(6, 5));
         minimumPriorityQueue2.insert(new HeapNode(8, 11));
         minimumPriorityQueue2.insert(new HeapNode( 11, 12));
 

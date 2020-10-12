@@ -96,7 +96,7 @@ public class MinimumPriorityQueue<T> {
 
         if (index > 1) {
             int parentIndex = getParent(index);
-            if (heap[index].getPriority() < heap[parentIndex].getPriority()) {
+            if (heap[index].getPriority().compareTo(heap[parentIndex].getPriority()) < 0) {
                 swap(index, parentIndex);
 
                 heapify_up(parentIndex);
@@ -115,14 +115,14 @@ public class MinimumPriorityQueue<T> {
 
         int smallest = 0;
 
-        if ((leftChildIndex <= maximumSize) && heap[leftChildIndex] !=null && heap[leftChildIndex].getPriority() < heap[index].getPriority()) {
+        if ((leftChildIndex <= maximumSize) && heap[leftChildIndex] !=null && heap[leftChildIndex].getPriority().compareTo(heap[index].getPriority())< 0 ) {
             smallest = leftChildIndex;
 
         } else {
             smallest = index;
         }
 
-        if ( (rightChildIndex <= maximumSize) && heap[rightChildIndex]!= null && heap[rightChildIndex].getPriority() < heap[smallest].getPriority()) {
+        if ( (rightChildIndex <= maximumSize) && heap[rightChildIndex]!= null && heap[rightChildIndex].getPriority().compareTo(heap[smallest].getPriority()) <0 ) {
             smallest = rightChildIndex;
 
         }
@@ -229,7 +229,7 @@ public class MinimumPriorityQueue<T> {
      */
     public void printHeap() {
         for (int i = 1; i <= maximumSize; i++)
-            System.out.println("(" + heap[i].element + ", " + heap[i].priority + ")");
+            System.out.println("(" + heap[i].getElement() + ", " + heap[i].getPriority() + ")");
     }
 
 
@@ -250,7 +250,7 @@ public class MinimumPriorityQueue<T> {
      */
     public HeapNode deleteItem(T item) {
         for (int i = 1; i <= maximumSize; i++) {
-            if (heap[i].element == item) {
+            if (heap[i].getElement() == item) {
                 return delete(i);
             }
         }
@@ -266,8 +266,8 @@ public class MinimumPriorityQueue<T> {
 
     public void changeKey(int oldPriority, int newPriority) {
         for (int i = 1; i <= maximumSize; i++) {
-            if (heap[i].priority == oldPriority) {
-                heap[i].priority = newPriority;
+            if (heap[i].getPriority().compareTo(oldPriority) == 0) {
+                heap[i].setPriority(newPriority);
                 heapify_down(i);
             }
         }
