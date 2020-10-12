@@ -16,7 +16,7 @@ public class GraphLanguage {
      * @param fileName - The name of the file
      * @throws IOException
      */
-    public void  processFile(String fileName) throws IOException {
+    public Map<String, List<Edge>>  processFile(String fileName) throws IOException {
 
         String filePath = new File("").getAbsolutePath();
 
@@ -29,6 +29,8 @@ public class GraphLanguage {
         String[] pair = null;
 
         int index = 0;
+
+        Graph graph = null;
 
         try {
             reader = new BufferedReader(new FileReader(filePath + fileName));
@@ -43,7 +45,7 @@ public class GraphLanguage {
                 index++;
             }
 
-            Graph graph = new Graph(vertices);
+             graph = new Graph(vertices);
 
             //-- For each entry of the map, calling method to populate the graph
             for (Map.Entry<Integer, String[]> entry : nodeValueMap.entrySet()) {
@@ -71,6 +73,7 @@ public class GraphLanguage {
         } catch (IOException e) {
             System.out.println("Error while processing file" + e.getMessage());
         }
+        return (graph !=null)? graph.getAdjListMap(): null ;
 
     }
 

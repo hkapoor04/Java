@@ -83,21 +83,21 @@ public class TestIntegerSet {
 
         System.out.println("********************** Testing intersection - start *******************");
         IntegerSet integerSet6 =  new IntegerSet();
-        integerSet6.add(50);
-        integerSet6.add(25);
-        integerSet6.add(85);
-        integerSet6.add(15);
-        integerSet6.add(45);
-        integerSet6.add(85);
+        integerSet6.add(1);
+        integerSet6.add(2);
+        integerSet6.add(3);
+        integerSet6.add(4);
+        integerSet6.add(5);
+        integerSet6.add(6);
 
         IntegerSet integerSet7 =  new IntegerSet();
-        integerSet7.add(50);
-        integerSet7.add(25);
-        integerSet7.add(85);
+        integerSet7.add(3);
+        integerSet7.add(4);
         integerSet7.add(5);
-        integerSet7.add(10);
-        integerSet7.add(100);
-
+        integerSet7.add(6);
+        integerSet7.add(7);
+        integerSet7.add(8);
+        integerSet7.add(8);
         System.out.println("First BST: " + integerSet6);
 
         System.out.println("Second BST: " + integerSet7);

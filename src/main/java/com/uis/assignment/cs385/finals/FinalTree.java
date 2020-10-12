@@ -8,6 +8,7 @@ public class FinalTree<E extends Comparable<? super E>> {
     private Node<E> root;
     private int size;
 
+
     public FinalTree() {
         root = null;
         size = 0;

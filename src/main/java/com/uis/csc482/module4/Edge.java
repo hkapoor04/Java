@@ -179,4 +179,7 @@ class Graph {
         return (builder.toString());
     }
 
+    public Map<String, List<Edge>> getAdjListMap() {
+        return adjListMap;
+    }
 }
