@@ -4,7 +4,7 @@ public class HeapNode<T extends Comparable<T>>  implements Comparable<HeapNode<T
     private T element;
     private T priority;
 
-    public HeapNode(T element, T priority){
+    public  HeapNode(T element, T priority){
         this.element = element;
         this.priority = priority;
     }

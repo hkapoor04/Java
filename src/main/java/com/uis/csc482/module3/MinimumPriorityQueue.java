@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-public class MinimumPriorityQueue<T> {
+public class MinimumPriorityQueue<T extends Comparable> {
 
     private HeapNode[] heap;
 
@@ -19,7 +19,7 @@ public class MinimumPriorityQueue<T> {
         this.heapSize = 0;
         heap = new HeapNode[this.maximumSize + 1];
        for(int i=1; i<=maximumSize; i++){
-           heap[i] = new HeapNode(0,0);
+           heap[i] = new HeapNode<>(0.0f,-0.1f);
        }
         heapMap = new HashMap<>();
     }
@@ -46,9 +46,9 @@ public class MinimumPriorityQueue<T> {
      * @param n
      * @return MinimumPriorityQueue
      */
-    public static MinimumPriorityQueue startHeap(int n) {
+    public static MinimumPriorityQueue<Comparable> startHeap(int n) {
 
-        return new MinimumPriorityQueue(n);
+        return new MinimumPriorityQueue<>(n);
     }
 
 
@@ -122,7 +122,7 @@ public class MinimumPriorityQueue<T> {
             smallest = index;
         }
 
-        if ( (rightChildIndex <= maximumSize) && heap[rightChildIndex]!= null && heap[rightChildIndex].getPriority().compareTo(heap[smallest].getPriority()) <0 ) {
+        if ( (rightChildIndex <= maximumSize) && heap[rightChildIndex]!= null && heap[rightChildIndex].getPriority().compareTo(heap[smallest].getPriority()) < 0 ) {
             smallest = rightChildIndex;
 
         }
@@ -250,7 +250,7 @@ public class MinimumPriorityQueue<T> {
      */
     public HeapNode deleteItem(T item) {
         for (int i = 1; i <= maximumSize; i++) {
-            if (heap[i].getElement() == item) {
+            if (heap[i].getElement().equals(item)) {
                 return delete(i);
             }
         }
@@ -260,13 +260,13 @@ public class MinimumPriorityQueue<T> {
     /**
      * This method changes a particular item in heap
      *
-     * @param oldPriority     - The item to be changed
+     * @param item     - The item to be changed
      * @param newPriority - The new value of the item
      */
 
-    public void changeKey(int oldPriority, int newPriority) {
+    public void changeKey(T item, T newPriority) {
         for (int i = 1; i <= maximumSize; i++) {
-            if (heap[i].getPriority().compareTo(oldPriority) == 0) {
+            if (heap[i].getElement().equals(item) ) {
                 heap[i].setPriority(newPriority);
                 heapify_down(i);
             }

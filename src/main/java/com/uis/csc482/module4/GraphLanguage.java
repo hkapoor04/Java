@@ -40,6 +40,7 @@ public class GraphLanguage {
             while (line != null) {
                 pair = line.split("="); //-- splitting the values with '='
                 vertices.add(pair[0]);
+                vertices.add(pair[1]);
                 nodeValueMap.put(index, pair);
                 line = reader.readLine();
                 index++;
@@ -50,9 +51,9 @@ public class GraphLanguage {
             //-- For each entry of the map, calling method to populate the graph
             for (Map.Entry<Integer, String[]> entry : nodeValueMap.entrySet()) {
                 if (header != null && header.equalsIgnoreCase("directed weighted")) {
-                    graph.addEdge(entry.getValue()[0], entry.getValue()[1], entry.getValue()[2], false);
+                    graph.addEdge(entry.getValue()[0], entry.getValue()[1], Float.valueOf(entry.getValue()[2]), false);
                 } else if ((header != null && header.equalsIgnoreCase("undirected weighted"))) {
-                    graph.addEdge(entry.getValue()[0], entry.getValue()[1], entry.getValue()[2], true);
+                    graph.addEdge(entry.getValue()[0], entry.getValue()[1], Float.valueOf(entry.getValue()[2]), true);
                 } else if (header != null && (header.equalsIgnoreCase("directed unweighted"))) {
                     graph.addEdge(entry.getValue()[0], entry.getValue()[1], false);
                 } else if (header != null && header.equalsIgnoreCase("undirected unweighted")) {

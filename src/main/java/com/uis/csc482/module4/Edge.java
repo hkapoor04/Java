@@ -7,16 +7,24 @@ import java.util.Map;
 
 public class Edge {
 
-    String destination;
-    String weight;
+    private String destination;
+    private float weight;
 
-    Edge(String destination, String weight) {
+    Edge(String destination, float weight) {
         this.destination = destination;
         this.weight = weight;
     }
 
     Edge(String destination) {
         this.destination = destination;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public float getWeight() {
+        return weight;
     }
 }
 
@@ -65,7 +73,7 @@ class Graph {
      * @param destination the edge added to the source
      * @param weight      the weight along each edge
      */
-    public void addEdge(String source, String destination, String weight, boolean biDirectional) {
+    public void addEdge(String source, String destination, float weight, boolean biDirectional) {
 
         List<Edge> list = adjListMap.get(source);
         Edge edge = new Edge(destination, weight);
@@ -142,9 +150,9 @@ class Graph {
             for (int i = 0; i < adjListMap.get(v).size(); i++) {
 
                 if (i == adjListMap.get(v).size() - 1) {
-                    builder.append("( " + adjListMap.get(v).get(i).destination + " )");
+                    builder.append("( " + adjListMap.get(v).get(i).getDestination() + " )");
                 } else {
-                    builder.append("( " + adjListMap.get(v).get(i).destination + " )" + ",");
+                    builder.append("( " + adjListMap.get(v).get(i).getDestination() + " )" + ",");
                 }
             }
 
@@ -167,9 +175,9 @@ class Graph {
 
             for (int i = 0; i < adjListMap.get(v).size(); i++) {
                 if (i == adjListMap.get(v).size() - 1) {
-                    builder.append("( " + adjListMap.get(v).get(i).destination + ", " + adjListMap.get(v).get(i).weight + " )");
+                    builder.append("( " + adjListMap.get(v).get(i).getDestination() + ", " + adjListMap.get(v).get(i).getWeight() + " )");
                 } else {
-                    builder.append("( " + adjListMap.get(v).get(i).destination + ", " + adjListMap.get(v).get(i).weight + " )" + ",");
+                    builder.append("( " + adjListMap.get(v).get(i).getDestination() + ", " + adjListMap.get(v).get(i).getWeight() + " )" + ",");
                 }
             }
 
