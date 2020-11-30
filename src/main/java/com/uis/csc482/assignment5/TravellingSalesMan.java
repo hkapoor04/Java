@@ -3,173 +3,131 @@ package com.uis.csc482.assignment5;
 import com.uis.csc482.module4.Edge;
 import com.uis.csc482.module4.GraphLanguage;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class TravellingSalesMan {
 
-    private static int [][] adjacencyMatrix;
+    private static Map<String, List<Edge>> stringListMap = new LinkedHashMap<>();
 
-    public static void main (String args[]) throws IOException {
+    private static int min = Integer.MAX_VALUE;
+
+
+    private static List<String> visitedPathList = new ArrayList<>();
+
+    public static void main(String args[]) throws IOException {
 
         String inputFileName = "/src/main/java/com/uis/csc482/assignment5/t4.gl";
 
         GraphLanguage graphLanguage = new GraphLanguage();
-        Map<String, List<Edge>> stringListMap =  graphLanguage.processFile(inputFileName);
 
-        adjacencyMatrix = new int[stringListMap.size()][stringListMap.size()];
-
-        for (String v : stringListMap.keySet()) {
-
-            for (int i = 0; i < stringListMap.get(v).size(); i++) {
-
-                populateAdjacencyMatrix(v, stringListMap.get(v).get(i).getDestination(), (int) stringListMap.get(v).get(i).getWeight());
-            }
-        }
-        //findMinimumCycle();
+        stringListMap = graphLanguage.processFile(inputFileName);
 
         findMinimum(stringListMap);
+
+        System.out.println(min);
+
+        sendOutputToFile(min, "/Users/harshitkapoor/IdeaProjects/Java/src/main/java/com/uis/csc482/assignment5/minimumWeight.txt");
+
+        visitedPathList.remove(0);
+
+        sendVertexPathOutputToFile(visitedPathList);
+
     }
 
-    public static void populateAdjacencyMatrix(String to, String from, int weight){
-        try{
-             int t = 0;
-             int f = 0;
+    /**
+     * This method finds the minimum weight, and the path for a given cycle
+     * @param stringListMap - The map of different connected vertices
+     */
+    public static void findMinimum(Map<String, List<Edge>> stringListMap) {
 
-             if( to.equalsIgnoreCase("A")){
-                 t = 0;
-             } else if(to.equalsIgnoreCase("B")){
-                 t = 1;
-             } else if(to.equalsIgnoreCase("C")){
-                 t = 2;
-             }else if(to.equalsIgnoreCase("D")) {
-                 t = 3;
-             }else{
-                 t = 4;
-             }
-
-            if( from.equalsIgnoreCase("A")){
-                f = 0;
-            } else if(from.equalsIgnoreCase("B")){
-                f = 1;
-            } else if(from.equalsIgnoreCase("C")){
-                f = 2;
-            } else if(from.equalsIgnoreCase("D")){
-                f = 3;
-            } else{
-                f = 4;
-            }
-
-            adjacencyMatrix[t][f] = weight;
-        } catch (ArrayIndexOutOfBoundsException ex){
-            System.out.print("The vertices do not exist");
-        }
-    }
-
-    public static void findMinimumCycle(){
-        int minimumPathWeightSum = 0;
         int counter = 0;
-        int j = 0, i = 0;
-        int minimumWeight = Integer.MAX_VALUE;
-
-        List<Integer> visitedNodeList = new ArrayList<>();
-
-        // Starting from the first node and marking it as visited
-        visitedNodeList.add(0);
-
-        // This array stores the route taken in the cycle
-        int[] routeTaken = new int[adjacencyMatrix.length];
-
-        // Traverse the adjacency matrix to find the minimum path
-        while (i < adjacencyMatrix.length && j < adjacencyMatrix[i].length) {
-
-            // Breaking out of the loop if the value of counter goes beyond the length of matrix
-            if (counter >= adjacencyMatrix[i].length - 1) {
-                break;
-            }
-
-            // Checking the path to be unvisited and weight is minimum
-            if (j != i && !(visitedNodeList.contains(j))) {
-                if (adjacencyMatrix[i][j] < minimumWeight) {
-                    minimumWeight = adjacencyMatrix[i][j];
-                    routeTaken[counter] = j + 1;
-                }
-            }
-            j++;
-
-            // Check all paths from the ith indexed node
-            if (j == adjacencyMatrix[i].length) {
-                minimumPathWeightSum += minimumWeight;
-                minimumWeight = Integer.MAX_VALUE;
-                visitedNodeList.add(routeTaken[counter] - 1);
-                j = 0;
-                i = routeTaken[counter] - 1;
-                counter++;
-            }
-        }
-
-        // Update the ending node in the array that was last visited
-        i = routeTaken[counter - 1] - 1;
-
-        for (j = 0; j < adjacencyMatrix.length; j++) {
-            if ((i != j) && adjacencyMatrix[i][j] < minimumWeight) {
-                minimumWeight = adjacencyMatrix[i][j];
-                routeTaken[counter] = j + 1;
-            }
-        }
-        minimumPathWeightSum += minimumWeight;
-
-        System.out.print("Minimum Cost is : ");
-        System.out.println(minimumPathWeightSum);
-
-        for (int k =0; k<routeTaken.length; k++) {
-
-            if(k==0) {
-                System.out.print("[ " + routeTaken[k] + ", ");
-            }
-
-            else if(k == routeTaken.length-1){
-                System.out.print(routeTaken[k] + " ]");
-            }
-            else{
-                System.out.print(routeTaken[k] + ", ");
-            }
-
-        }
-
-    }
-
-
-    public static void findMinimum(Map<String, List<Edge>> stringListMap){
 
         int sum = 0;
-
-        int counter = 0;
 
         List<String> visitedNodeList = new ArrayList<>();
 
         for (String v : stringListMap.keySet()) {
-
-            if(counter == stringListMap.size() -1){
-
-                visitedNodeList.remove(stringListMap.entrySet().stream().findFirst().get().getKey());
-
-            }
-
             for (int i = 0; i < stringListMap.get(v).size(); i++) {
 
-                if(!visitedNodeList.contains(stringListMap.get(v).get(i).getDestination()) && !visitedNodeList.contains(v)) {
-                    sum = sum + (int) stringListMap.get(v).get(i).getWeight();
-                    visitedNodeList.add(v);
-                    counter++;
+                visitedPathList.remove(stringListMap.entrySet().stream().findFirst().get().getKey() + stringListMap.get(v).get(i).getDestination());
+
+                visitedPathList.remove(stringListMap.get(v).get(i).getDestination() + stringListMap.entrySet().stream().findFirst().get().getKey());
+
+                if (i != 1) {
+
+                    visitedPathList.remove(stringListMap.get(v).get(i).getDestination() + v);
+
+                    visitedPathList.remove(v + stringListMap.get(v).get(i).getDestination());
+
+                }
+            }
+
+        }
+
+        String v = stringListMap.entrySet().stream().findFirst().get().getKey();
+
+        for (int i = 0; i < stringListMap.size(); i++) {
+            for (int j = 0; j < stringListMap.size(); j++) {
+
+                if (counter == stringListMap.size() - 1) {
+
+                    visitedNodeList.remove(stringListMap.entrySet().stream().findFirst().get().getKey());
+
                 }
 
+                if ((!visitedPathList.contains(v + stringListMap.get(v).get(j).getDestination()) && !visitedPathList.contains(stringListMap.get(v).get(j).getDestination() + v)) && !visitedNodeList.contains(v) && !visitedNodeList.contains(stringListMap.get(v).get(j).getDestination())) {
+                    sum = sum + (int) stringListMap.get(v).get(j).getWeight();
+                    visitedPathList.add(v + stringListMap.get(v).get(j).getDestination());
+                    visitedNodeList.add(v);
+                    counter++;
+                    v = stringListMap.get(v).get(j).getDestination();
+                    break;
 
+                }
             }
         }
 
-       System.out.print(sum);
+        if (sum < min) {
+            min = sum;
+            findMinimum(stringListMap);
+        }
+    }
+
+    private static void sendOutputToFile(int message, String fileName) throws IOException{
+
+        File file = new File(fileName);
+
+        FileWriter fileWriter = new FileWriter(file);
+
+        //BufferedWriter writer = new BufferedWriter(fileWriter);
+
+        fileWriter.write(String.valueOf(message));
+
+        fileWriter.close();
+
+    }
+
+    private static void sendVertexPathOutputToFile(List<String> visitedPathList) throws IOException{
+
+        File file = new File("/Users/harshitkapoor/IdeaProjects/Java/src/main/java/com/uis/csc482/assignment5/vertexPath.txt");
+
+        FileWriter fileWriter = new FileWriter(file);
+
+        for (int i=0;i<visitedPathList.size();i++) {
+            String str = visitedPathList.get(i).toString();
+            fileWriter.write(str);
+            if(i < visitedPathList.size()-1)
+                fileWriter.write("\n");
+        }
+
+        fileWriter.close();
+
     }
 }
